@@ -1,5 +1,6 @@
 import time
 import pprint
+# Below is the menu that we created
 Prices={"coffee 8oz":2.5,
         "coffee 16oz":3,
         "coffee 20oz":5,
@@ -18,6 +19,7 @@ Prices={"coffee 8oz":2.5,
     }
 global stuff_ordered
 stuff_ordered = []
+# Defining the function to take users order
 def take_order():
     print("Hello!")
     time.sleep(0.5)
@@ -25,10 +27,15 @@ def take_order():
     time.sleep(0.5)
     global menu_choice
     global total
-    pprint.pprint(Prices)
-    menu_choice = input("What would you like to order today? (enter your order as [drink] [size], just like on the menu) ")
+    output = ", ".join(f"{k}: {v}" for k, v in Prices.items())
+    print(output)
+    menu_choice = input("What would you like to order today? (enter your drink order as [drink] [size], just like on the menu) ")
     total = 0
-    total = total + Prices.get(menu_choice)
+    try:
+        total = total + Prices.get(menu_choice)
+    except TypeError:
+        while True:
+            print("That wasn't on the menu")
     print(f"Your current total is {total}")
     keep_going = input("Would you like to keep ordering? (yes or no) ")
     stuff_ordered.append(menu_choice)
@@ -36,7 +43,7 @@ def take_order():
     if keep_going == "yes":
             while orders<11:
                 pprint.pprint(Prices)
-                menu_choice = input("What would you like to order today? (enter your order as [drink] [size], just like on the menu) ")
+                menu_choice = input("What would you like to order today? (enter your drink order as [drink] [size], just like on the menu) ")
                 total = total + Prices.get(menu_choice)
                 print(f"Your current total is {total}")
                 stuff_ordered.append(menu_choice)
@@ -52,14 +59,15 @@ def take_order():
                     exit()
             if orders > 9:
                 print("You have reached the max order amount")
-
+# Defining the funtion to calculate the total 
 def calculate_total():
      print("Thank you for coming to our cafe")
      time.sleep(0.5)
      print(f"Your total is {total}")
+# Printing reciept funtion
 def print_receipt():
      global stuff_ordered
-     print("You ordered:")
+     print(f"\n\n\n\n\nYou ordered:")
      for item in stuff_ordered:
         print(item)
      print(f"And that all came up to a price of {total}")
