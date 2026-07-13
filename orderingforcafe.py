@@ -27,15 +27,14 @@ def take_order():
     time.sleep(0.5)
     global menu_choice
     global total
-    output = ", ".join(f"{k}: {v}" for k, v in Prices.items())
-    print(output)
+    pprint.pprint(Prices)
     menu_choice = input("What would you like to order today? (enter your drink order as [drink] [size], just like on the menu) ")
     total = 0
     try:
         total = total + Prices.get(menu_choice)
     except TypeError:
         while True:
-            print("That wasn't on the menu")
+            print("That wasn't on the menu, therefore, the cafe has self-destruceted and you, along with everything in a 2 mile radius is now gone.")
     print(f"Your current total is {total}")
     keep_going = input("Would you like to keep ordering? (yes or no) ")
     stuff_ordered.append(menu_choice)
